@@ -4,6 +4,7 @@ from question import Question_m
 from constant import *
 import requests as rqs
 import os
+import find_cat
 
 
 os.system('cls')
@@ -28,20 +29,24 @@ while True:
                 continue
             elif question_3 == choice_3[1]:
                 os.system('cls')
-                print(f"recherche des snacks dans la base de données")
-                continue
+                print(f"Recherche des {find_cat.contenu[0]} dans la base de données")
+                leaving = ""
+                break
             elif question_3 == choice_3[2]:
                 os.system('cls')
-                print(f"recherche des pates dans la base de données")
-                continue
+                print(f"Recherche des {find_cat.contenu[1]} dans la base de données")
+                leaving = ""
+                break
             elif question_3 == choice_3[3]:
                 os.system('cls')
-                print(f"recherche des boissons dans la base de données")
-                continue
+                print(f"Recherche des {find_cat.contenu[2]} dans la base de données")
+                leaving = ""
+                break
             elif question_3 == choice_3[4]:  
                 os.system('cls')
-                print(f"recherche des pizzas dans la base de données")
-                continue
+                print(f"Recherche des {find_cat.contenu[3]} dans la base de données")
+                leaving = ""
+                break
         elif question_2 == choice_2[2]:
             break
         elif question_2 == choice_2[3]:
