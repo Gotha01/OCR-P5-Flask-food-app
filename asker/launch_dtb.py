@@ -1,40 +1,40 @@
 #-*- coding: utf-8 -*-
 
+from favourites import Favourites
 import mysql.connector as mys
 from send_query import make_Query
-from categories import Categories
 from constants import *
+from categories import Categories
 from products import Product
+from substituted import Substituted
 
 
-class check_dtb():
-    def __init__(self):
-        self.check_err = mys.errors.ProgrammingError
-        self.tables = [('category',), ('product',), ('substituted',)]
-        self.values_category = [('boissons',), ('pates',), ('pizzas',), ('snacks',)]
-        
-        #Check if dtb 'projet5' exists.
-        try:
-            make_Query(user, use_dtb, "EXECUTE")
-        except self.check_err:
-            for element in init_Dtb:
-                make_Query(user, element, "CREATE")
-            print("Database correctly initialized")
+class init_dtb():
+    def __init__(self, database_name, categories_list):
+        self.dtb = database_name
+        self.categories_list = categories_list
+        self.check_err_prog = mys.errors.ProgrammingError
+        self.check_err_integ = mys.errors.IntegrityError
+        self.check_if_exists()
+        self.init_tables()
+        self.insert_categories()
+        self.insert_products()
 
-        #Checking the database tables.
-        read_tables = make_Query(user, "SHOW tables;", "READ", use_dtb).result
-        if read_tables != self.tables:
-            for element in init_Tables:
-                make_Query(user, element, "CREATE", use_dtb)
-            print("Tables correctly created")
+    def check_if_exists(self):
+            try:
+                make_Query(user, f"USE {self.dtb}", "EXECUTE")
+            except self.check_err_prog:
+                make_Query(user,f"DROP DATABASE IF EXISTS {self.dtb};", "DELETE")
+                make_Query(user,f"CREATE DATABASE {self.dtb};", "CREATE")
 
-        #Checking category values.
-        read_category = make_Query(user, "SELECT name FROM category;", "READ", use_dtb).result
-        if read_category != self.values_category:
-            for value in self.values_category:
-                for element in value:
-                    Categories(element).create_category_values()
-            print("Correct implementation of categories")
-            
-        #Create values in "product" table
-        Product()
+    def init_tables(self):
+        Categories.init_table()
+        Product.init_table()
+        Substituted.init_table()
+        Favourites.init_table()
+
+    def insert_categories(self):
+        Categories(self.categories_list).update_category_values()
+
+    def insert_products(self):
+        Product(self.categories_list).insert_product_values(True)

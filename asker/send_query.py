@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector as mys
-import constants as cst
+from constants import *
+
 
 class make_Query():
     def __init__(self, sql_config, sql_Query, CRUD_Operation, target_Database = "0"):
@@ -20,16 +21,17 @@ class make_Query():
         self.target_Database = target_Database
         
         CRUD = {
-        "CREATE" or "DELETE" : self.sql_Query_Creator_Suppressor,
-        "READ" : self.sql_Query_Reader,
-        "UPDATE" : self.sql_Query_Updater,
-        "EXECUTE" : self.sql_Query_execute
+        "CREATE" : self.creator_Suppressor,
+        "DELETE" : self.creator_Suppressor,
+        "READ" : self.Reader,
+        "UPDATE" : self.updater,
+        "EXECUTE" : self.execute
         }
         
         try: 
             CRUD[self.CRUD].__call__()
         except KeyError as bad_key:
-            print("{}".format(bad_key))
+            print("{} 1".format(bad_key))
 
     def create_Cursor_Connection(self):
         try:
@@ -44,29 +46,29 @@ class make_Query():
                 self.cursor.close()
                 self.connect.close()
     
-    def sql_Query_Creator_Suppressor(self):
+    def creator_Suppressor(self):
         self.create_Cursor_Connection()
         if self.target_Database.isdigit() == False :
-            self.cursor.execute(self.target_Database)
+            self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
         self.close_Cursor_Connection()
 
-    def sql_Query_Reader(self):
+    def Reader(self):
         self.create_Cursor_Connection()
         if self.target_Database != "0":
-            self.cursor.execute(self.target_Database)
+            self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
         self.result = self.cursor.fetchall()
         return self.result
 
-    def sql_Query_Updater(self):
+    def updater(self):
         self.create_Cursor_Connection()
-        self.cursor.execute(self.target_Database)
+        self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
         self.connect.commit()
         self.close_Cursor_Connection()
 
-    def sql_Query_execute(self):
+    def execute(self):
         self.create_Cursor_Connection()
         self.cursor.execute(self.sql_Query)
         self.close_Cursor_Connection()
