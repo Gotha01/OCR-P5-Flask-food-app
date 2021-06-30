@@ -4,9 +4,6 @@ from send_query import make_Query
 from constants import user, dtb
 
 class Favourites():
-    def __init__(self):
-        pass
-    
     def init_table():
         make_Query(user,
             """CREATE TABLE IF NOT EXISTS favourites
@@ -19,7 +16,7 @@ class Favourites():
             )
             ENGINE=INNODB;""", "CREATE", dtb)
 
-    def record_produit(prod_id, categ_id):
+    def record_product(prod_id, categ_id):
         make_Query(user, f"""INSERT IGNORE INTO favourites(favourite_product_ID,favourite_category_ID) VALUES({prod_id},{categ_id})""", "UPDATE", dtb)
 
     def display_favourite_product(ident):

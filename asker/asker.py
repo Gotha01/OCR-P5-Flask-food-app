@@ -94,7 +94,7 @@ class Asker_p5:
                         \n\nMagasins :\n    {favourite[4].replace("[", "").replace("]", "").replace(",", ", ")}""")
                     rec = Question(questioner, q6, 1).answer
                     if rec == "Oui.":
-                        Favourites.record_produit(favourite[0],favourite[2])
+                        Favourites.record_product(favourite[0],favourite[2])
                 c5.clear()
                 return "Retour au menu principal."
             else:
