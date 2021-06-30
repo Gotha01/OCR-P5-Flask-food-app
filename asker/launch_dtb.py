@@ -6,7 +6,6 @@ from send_query import make_Query
 from constants import *
 from categories import Categories
 from products import Product
-from substituted import Substituted
 
 
 class init_dtb():
@@ -30,7 +29,6 @@ class init_dtb():
     def init_tables(self):
         Categories.init_table()
         Product.init_table()
-        Substituted.init_table()
         Favourites.init_table()
 
     def insert_categories(self):

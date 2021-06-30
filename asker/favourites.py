@@ -19,7 +19,7 @@ class Favourites():
             )
             ENGINE=INNODB;""", "CREATE", dtb)
 
-    def record_aliment(prod_id, categ_id):
+    def record_produit(prod_id, categ_id):
         make_Query(user, f"""INSERT IGNORE INTO favourites(favourite_product_ID,favourite_category_ID) VALUES({prod_id},{categ_id})""", "UPDATE", dtb)
 
     def display_favourite_product(ident):
@@ -32,3 +32,6 @@ class Favourites():
     def display_all_favourite_product():
         all_fav = make_Query(user, "SELECT DISTINCT favourite_product_ID FROM favourites;", "READ", dtb).result
         return all_fav
+
+    def suppress_all():
+        make_Query(user, "TRUNCATE TABLE favourites;", "DELETE", dtb)

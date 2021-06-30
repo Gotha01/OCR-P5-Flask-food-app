@@ -15,7 +15,7 @@ class Question():
         self.question = question
         self.q_key = q_key
         self.clean = clean
-        if clean:
+        if clean == 1:
             system("cls")
         if type(self.question) is str:
             self.answer = self.ask_question()

@@ -38,4 +38,3 @@ class Categories:
             for element in elements:
                 column_result.append(element)
         return column_result
-        
