@@ -2,13 +2,13 @@
 
 from favourites import Favourites
 import mysql.connector as mys
-from send_query import make_Query
+from send_query import Make_Query
 from constants import *
 from categories import Categories
 from products import Product
 
 
-class init_dtb():
+class Init_Dtb():
     def __init__(self, database_name, categories_list):
         self.dtb = database_name
         self.categories_list = categories_list
@@ -21,10 +21,10 @@ class init_dtb():
 
     def check_if_exists(self):
             try:
-                make_Query(user, f"USE {self.dtb}", "EXECUTE")
+                Make_Query(SQL_CONNECTORS, f"USE {self.dtb}", "EXECUTE")
             except self.check_err_prog:
-                make_Query(user,f"DROP DATABASE IF EXISTS {self.dtb};", "DELETE")
-                make_Query(user,f"CREATE DATABASE {self.dtb};", "CREATE")
+                Make_Query(SQL_CONNECTORS,f"DROP DATABASE IF EXISTS {self.dtb};", "DELETE")
+                Make_Query(SQL_CONNECTORS,f"CREATE DATABASE {self.dtb};", "CREATE")
 
     def init_tables(self):
         Categories.init_table()

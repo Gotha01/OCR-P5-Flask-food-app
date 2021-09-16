@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+
+from display import display
 from os import system
+
 
 class Question():
     def __init__(self, question, q_key="", clean=0):
@@ -17,22 +20,24 @@ class Question():
         self.clean = clean
         if clean == 1:
             system("cls")
-        if type(self.question) is str:
+        if isinstance(self.question, str) or isinstance(self.question, list):
             self.answer = self.ask_question()
-        elif type(self.question) is dict:
+        elif isinstance(self.question, dict):
             self.answer = self.ask_multiple_choice_question()
 
     def ask_question(self):
+        if isinstance(self.question, list):
+            " ".split()
         print(self.question)  
         result = input("")
         return result  
 
     def ask_multiple_choice_question(self):
-        print(self.q_key)
+        for_display = [self.q_key]
         choices = self.question[self.q_key][0]
         for i, element in enumerate(choices, start=1):
-            print(i, element)
-        
+            for_display.append(str(i) + "/ " +  element)
+        print(display(150, "=", for_display, 1, "|", "left"))
         while True:
             try:
                 choices_list = self.question[self.q_key][0]

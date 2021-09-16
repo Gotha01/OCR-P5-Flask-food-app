@@ -1,57 +1,79 @@
 # -*- coding: utf-8 -*-
 
-
-#-----------------------------------------DTBCONFIG-----------------------------------------
-
-user = {
+#-----------------------------------CONFIG------------------------------------
+SQL_CONNECTORS = {
     'user' : 'root',
 }
-dtb = "projet5"
-categories = ["snacks", "boissons", "pates", "pizzas"]
+DTB = "projet5"
+CATEGORIES = ["snacks", "boissons", "pates", "pizzas"]
 
-#-------------------------------------------Questions-------------------------------------------
+#----------------------------------Questions----------------------------------
 #Messages
-home_msg = "Bienvenue sur notre application de substitution des produits.\n\n >> Veuillez appuyer sur 'ENTREE'"
-home_user_msg = "Lancement de l'interface utilisateur\n\n >> Veuillez appuyer sur 'ENTREE'"
-leaving = "Merci d'avoir utiliser notre application! A bientôt !"
+HOME_MESSAGE = ["Bienvenue sur notre application de substitution des produits.",
+                "Veuillez appuyer sur 'ENTREE'."]
 
+HOME_USER_MESSAGE = ["Lancement de l'interface utilisateur.",
+                     "Veuillez appuyer sur 'ENTREE'."]
 
+LEAVING = ["Merci d'avoir utiliser notre application !","A bientôt !"]
+
+NO_FAV_PRODUCT = "    Aucun produit n'est enregistré dans vos produits favoris"
+
+SEARCHING_RULE = "Veuillez entrer au minimum 3 caractères."
 #Questions
-q1 = "==>   Veuillez choisir parmi les options suivantes :\n\
-        (Entrez un nombre)\n"
-q2 = "==>   Voici les différentes méthodes de recherche :\n"
-q3 = "==>   Veuillez choisir parmi les catégories suivantes :\n"
-q3_1 = "==> Veuillez sélectionner l'identifiant du produit de votre choix :\n"
-q4 = "==>   Veuillez indiquer le nom du produit à substituer :\n"
-q5 = "==>   Veuillez selectionner le produit dont vous souhaitez plus de détails :\n"
-q6 = "==>   Vous allez être redirigé au menu principal.\n\
-    Voulez-vous enregistrer ce produit dans vos produits favoris ?\n"
+Q1 = "  Veuillez choisir parmi les options suivantes :"
+Q2 = "  Voici les différentes méthodes de recherche :"
+Q3 = "  Veuillez choisir parmi les catégories suivantes :"
+Q3_1 = "  Veuillez sélectionner l'identifiant du produit de votre choix :"
+Q4 = "  Veuillez indiquer le nom du produit à substituer :"
+Q5 = "  Veuillez selectionner le produit dont vous souhaitez \
+plus de détails :"
+Q6 = "  Voulez-vous rechercher un substitut pour ce produit?"
+Q6_1 = "  Ces produits sont les mieux classés de la catégories.\
+Veuillez sélectionner l'identifiant du produit de votre choix :"
+Q7 = "  Votre recherche ne correspond à aucun produit."
+Q8 = "  Vous pouvez enregistrer ce produit dans vos produits favoris"
 
 #Choices
-c1 = ["Remplacer un produit.", "Retrouver mes produits favoris.", "Quitter."]
-c2 = ["Choisir en fonction de la catégorie.", "Choisir en fonction du produit.", "Retour au menu principal.", "Quitter."]
-c3 = ["Snacks.","Pates.", "Boissons.", "Pizzas.", "Retour au menu principal.", "Quitter."]
-c3_1 = []
-c4 = ["", "Retour au menu principal.", "Quitter."]
-c5 = []
-c6 = ["Oui.", "Non."]
+SUPRESS = "Supprimer tous les produits de la liste enregistrés."
+REPLACE_PROD = "Entrez le nom du produit que vous souhaitez remplacer : \
+(3 caractères minimum)"
+MAIN_MENU = "Retour au menu principal."
 
-suppress = "Supprimer tous les produits de la liste enregistrés."
+C_EMPTY = []
+C1 = ["Remplacer un produit.", "Retrouver mes produits favoris.", "Quitter."]
+C2 = [
+    "Choisir un produit dans une catégorie.",
+    "Choisir un produit en fonction de son nom.",
+    "Retour au menu principal.",
+    "Quitter."
+    ]
+C3 = ["Snacks.","Pates.", "Boissons.", "Pizzas.",
+      "Retour au menu principal.", "Quitter."]
+C4 = ["", "Retour au menu principal.", "Quitter."]
+C6 = ["Oui.", "Non."]
+C7 = ["Réessayer.", "Retour au menu principal."]
 
 #Answers
-ans_1 = "\nVotre choix : "
-ans_2 = "\nVotre méthode : "
-ans_3 = "\nVotre catégorie : "
-ans_4 = "\nVotre produit : "
-ans_5 = "\nProduit sélectionné: "
-ans_6 = "\nEnregistrer le produit ? "
+ANS_1 = "\nVotre choix : "
+ANS_2 = "\nVotre méthode : "
+ANS_3 = "\nVotre catégorie : "
+ANS_4 = "\nVotre produit : "
+ANS_5 = "\nProduit sélectionné : "
+ANS_6 = "\nTrouver un substitut ? "
+ANS_7 = "\nVotre choix : "
+ANS_8 = "\nVotre proposition : "
 
-questioner = {
-    q1 : [c1, ans_1],
-    q2 : [c2, ans_2],
-    q3 : [c3, ans_3],
-    q3_1 : [c3_1, ans_4],
-    q4 : [c4, ans_4],
-    q5 : [c5, ans_5],
-    q6 : [c6, ans_6]
+QUESTIONER = {
+    Q1 : [C1, ANS_1],
+    Q2 : [C2, ANS_2],
+    Q3 : [C3, ANS_3],
+    Q3_1 : [C_EMPTY, ANS_4],
+    Q4 : [C4, ANS_4],
+    Q5 : [C_EMPTY, ANS_5],
+    Q6 : [C6, ANS_6],
+    Q6_1 : [C_EMPTY, ANS_5],
+    Q7 : [C7, ANS_7],
+    Q8 : [C6, ANS_7],
+    REPLACE_PROD: [C_EMPTY, ANS_8]
 }

@@ -4,7 +4,7 @@ import mysql.connector as mys
 from constants import *
 
 
-class make_Query():
+class Make_Query():
     def __init__(self, sql_config, sql_Query, CRUD_Operation, target_Database = "0"):
         """Init a new query for a mysql server
 
@@ -21,9 +21,9 @@ class make_Query():
         self.target_Database = target_Database
         
         CRUD = {
-        "CREATE" : self.creator_Suppressor,
-        "DELETE" : self.creator_Suppressor,
-        "READ" : self.Reader,
+        "CREATE" : self.creator_suppressor,
+        "DELETE" : self.creator_suppressor,
+        "READ" : self.reader,
         "UPDATE" : self.updater,
         "EXECUTE" : self.execute
         }
@@ -33,7 +33,7 @@ class make_Query():
         except KeyError as bad_key:
             print("{} 1".format(bad_key))
 
-    def create_Cursor_Connection(self):
+    def create_cursor_connection(self):
         try:
             self.connect = mys.connect(**self.config)
             self.cursor = self.connect.cursor()
@@ -41,20 +41,20 @@ class make_Query():
             self.connect.rollback() #rollback if exception
             print("Query canceled, SQL error : {}".format(err))
         
-    def close_Cursor_Connection(self):
+    def close_cursor_connection(self):
         if self.connect.is_connected():
                 self.cursor.close()
                 self.connect.close()
     
-    def creator_Suppressor(self):
-        self.create_Cursor_Connection()
+    def creator_suppressor(self):
+        self.create_cursor_connection()
         if self.target_Database.isdigit() == False :
             self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
-        self.close_Cursor_Connection()
+        self.close_cursor_connection()
 
-    def Reader(self):
-        self.create_Cursor_Connection()
+    def reader(self):
+        self.create_cursor_connection()
         if self.target_Database != "0":
             self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
@@ -62,13 +62,13 @@ class make_Query():
         return self.result
 
     def updater(self):
-        self.create_Cursor_Connection()
+        self.create_cursor_connection()
         self.cursor.execute(f"USE {self.target_Database}")
         self.cursor.execute(self.sql_Query)
         self.connect.commit()
-        self.close_Cursor_Connection()
+        self.close_cursor_connection()
 
     def execute(self):
-        self.create_Cursor_Connection()
+        self.create_cursor_connection()
         self.cursor.execute(self.sql_Query)
-        self.close_Cursor_Connection()
+        self.close_cursor_connection()
