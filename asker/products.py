@@ -88,7 +88,8 @@ class Product:
                         f'INSERT INTO product(name_product, category_ID,\
                              nutrition_grades_product, store_product, \
                                  description_product, url_product)\
-                        VALUES("{element[0]}","{self.category_id}","{element[2]}","{element[3]}","{element[4]}","{element[5]}")', 
+                        VALUES("{element[0]}","{self.category_id}","{element[2]}",\
+                            "{element[3]}","{element[4]}","{element[5]}")', 
                         "UPDATE", DTB)  
                 product_insert += 1
                 self.all_prod.append(element[0])

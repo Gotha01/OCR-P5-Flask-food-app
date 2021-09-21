@@ -4,7 +4,7 @@
 SQL_CONNECTORS = {
     'user' : 'root',
 }
-DTB = "projet5"
+DTB = "pur_beurre"
 CATEGORIES = ["snacks", "boissons", "pates", "pizzas"]
 
 #----------------------------------Questions----------------------------------

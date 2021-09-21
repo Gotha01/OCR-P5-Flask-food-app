@@ -13,7 +13,6 @@ class Init_Dtb():
         self.dtb = database_name
         self.categories_list = categories_list
         self.check_err_prog = mys.errors.ProgrammingError
-        self.check_err_integ = mys.errors.IntegrityError
         self.check_if_exists()
         self.init_tables()
         self.insert_categories()
@@ -23,8 +22,12 @@ class Init_Dtb():
             try:
                 Make_Query(SQL_CONNECTORS, f"USE {self.dtb}", "EXECUTE")
             except self.check_err_prog:
-                Make_Query(SQL_CONNECTORS,f"DROP DATABASE IF EXISTS {self.dtb};", "DELETE")
-                Make_Query(SQL_CONNECTORS,f"CREATE DATABASE {self.dtb};", "CREATE")
+                Make_Query(SQL_CONNECTORS,
+                           f"DROP DATABASE IF EXISTS {self.dtb};",
+                           "DELETE")
+                Make_Query(SQL_CONNECTORS,
+                           f"CREATE DATABASE {self.dtb};",
+                           "CREATE")
 
     def init_tables(self):
         Categories.init_table()

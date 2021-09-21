@@ -22,9 +22,11 @@ class Etl:
                  element]
             system("cls")
             print(display(150, "=", waiting, 2, "|"))
-            categreq = requests.get("https://world.openfoodfacts.org/cgi/search.pl?tagtype_0=categories&tag_contains_0=\
-            contains&tag_0=" + element + "&tagtype_1=languages&tag_contains_1=contains&tag_1=fr\
-            &page_size=150&search_simple=1&action=process&json=1").json()
+            categreq = requests.get("https://world.openfoodfacts.org/cgi/\
+search.pl?tagtype_0=categories&tag_contains_0=\
+contains&tag_0=" + element + "&tagtype_1=languages&\
+tag_contains_1=contains&tag_1=fr&page_size=150&search_simple=\
+1&action=process&json=1").json()
             all_query_cat[element] = categreq
         return all_query_cat
 
