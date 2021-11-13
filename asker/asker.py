@@ -27,6 +27,7 @@ class Asker:
             }
         self.home_user()
         self.asker_Loop()
+        system("cls")
 
     def display_details(self, product):
         system("cls")
@@ -67,17 +68,20 @@ class Asker:
         return self.answer
 
     def ask_found_better(self, category_id):
-        better_prod = Question(QUESTIONER, Q6, 1).answer
+        #Function to suggest finding a better product.
+        better_prod = Question(QUESTIONER, Q6, clean=1).answer
         if better_prod == "Oui.":
             C_EMPTY.clear()
             prod_search = Product.display_product(
-                ["name_product", "id_product"], 
+                ["name_product", "id_product", "nutrition_grades_product"], 
                  "category_ID", category_id[0],
                  order_by="nutrition_grades_product", numlimit="5")
+            product_and_grade = []
             for found_prod in prod_search:
-                C_EMPTY.append(found_prod[0])
-            fav_prod = Question(QUESTIONER, Q6_1, 1).answer
-            fav_prod_details = Product.display_product(["*"], "name_product", fav_prod)[0]
+                product_and_grade.append(found_prod[0] + " (" + found_prod[2] + ")")
+                C_EMPTY.append(product_and_grade[-1])
+            fav_prod = Question(QUESTIONER, Q6_1, clean=1).answer
+            fav_prod_details = Product.display_product(["*"], "name_product", fav_prod[0:-4])[0]
             self.display_details(fav_prod_details)
             C_EMPTY.clear()
             return fav_prod_details[0]
@@ -85,7 +89,8 @@ class Asker:
             return MAIN_MENU
 
     def ask_add_favourite(self, favourite, substituted):
-        answer = Question(QUESTIONER, Q8, 1).answer
+        #Function to ask to the users if they want to record products
+        answer = Question(QUESTIONER, Q8, clean=1).answer
         if answer == "Oui.":
             Favourites.record_product(favourite, substituted)
             system("cls")
@@ -96,16 +101,19 @@ class Asker:
             return MAIN_MENU
 
     def search_products_like_category(self):
+        #Function to find products by category
         cat_prod_dict = {}
         category_to_check = self.answer.lower().replace(".","")
         category_id = Categories.read_column_sql("id", f"WHERE name='{category_to_check}'")
-        cat_products = Product.display_product(["name_product", "id_product"], 'category_ID', category_id[0])
+        cat_products = Product.display_product(["name_product", "id_product", "nutrition_grades_product"], 'category_ID', category_id[0])
+        product_and_grade = []
         for element in cat_products:
-            cat_prod_dict[element[0]] = element[1]
-            C_EMPTY.append(element[0])
+            cat_prod_dict[element[0]] = [element[1], element[2]]
+            product_and_grade.append(element[0] + " (" + element[2] + ")")
+            C_EMPTY.append(product_and_grade[-1])
         first_question = Question(QUESTIONER, Q3_1, clean=1).answer
         choiced_product = Product.display_product(["*"], "id_product",
-            f"{cat_prod_dict[first_question]}")[0]
+            f"{cat_prod_dict[first_question[0:-4]][0]}")[0]
         C_EMPTY.clear()
         self.display_details(choiced_product)
         ids = self.ask_found_better(category_id)
@@ -114,6 +122,7 @@ class Asker:
         return MAIN_MENU
               
     def search_product_to_replace(self):
+        #Function to find products by name
         correct_product = True
         while correct_product:
             product_to_replace = Question(display(150, "=", REPLACE_PROD,
@@ -125,12 +134,12 @@ class Asker:
                     'name_product', "%" + product_to_replace + "%")
                 if prod_find != []:
                     for element in prod_find:
-                        C_EMPTY.append(element[0])
+                        C_EMPTY.append(element[0] + " (" + element[1] + ")")
                     C_EMPTY.append(MAIN_MENU)
                     favourite_prod = Question(QUESTIONER, Q5, clean=1).answer
                     if favourite_prod != MAIN_MENU:
                         choiced_product = Product.display_product(["*"],
-                            "name_product", favourite_prod)[0]
+                            "name_product", favourite_prod[0: -4])[0]
                         self.display_details(choiced_product)
                         ids = self.ask_found_better(str(choiced_product[2]))
                         if ids != MAIN_MENU:
@@ -141,7 +150,7 @@ class Asker:
                     else:
                         return MAIN_MENU
                 else:
-                    no_product = Question(QUESTIONER, Q7, 1).answer
+                    no_product = Question(QUESTIONER, Q7, clean=1).answer
                     if no_product == "Réessayer.":
                         continue
                     else :
@@ -164,7 +173,7 @@ class Asker:
                                                     )[0][0])
             C_EMPTY.append(MAIN_MENU)
             C_EMPTY.append(SUPRESS)
-            qst_all_fav = Question(QUESTIONER, Q5, 1).answer
+            qst_all_fav = Question(QUESTIONER, Q5, clean=1).answer
             if qst_all_fav != SUPRESS and qst_all_fav != MAIN_MENU:
                 favourite_prod = Product.display_product(
                                     ["id_product"],
@@ -196,3 +205,4 @@ class Asker:
             for element in self.dict_term:
                 if element == first_question:
                     first_question = self.dict_term[element].__call__()
+Asker()

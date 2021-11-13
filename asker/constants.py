@@ -27,16 +27,16 @@ Q3 = "  Veuillez choisir parmi les catégories suivantes :"
 Q3_1 = "  Veuillez sélectionner l'identifiant du produit de votre choix :"
 Q4 = "  Veuillez indiquer le nom du produit à substituer :"
 Q5 = "  Veuillez selectionner le produit dont vous souhaitez \
-plus de détails :"
+plus de détails : (valeur nutritionnelle)"
 Q6 = "  Voulez-vous rechercher un substitut pour ce produit?"
-Q6_1 = "  Ces produits sont les mieux classés de la catégories.\
+Q6_1 = "  Ces produits sont les mieux classés de la catégories. \
 Veuillez sélectionner l'identifiant du produit de votre choix :"
 Q7 = "  Votre recherche ne correspond à aucun produit."
 Q8 = "  Vous pouvez enregistrer ce produit dans vos produits favoris"
 
 #Choices
 SUPRESS = "Supprimer tous les produits de la liste enregistrés."
-REPLACE_PROD = "Entrez le nom du produit que vous souhaitez remplacer : \
+REPLACE_PROD = "    Entrez le nom du produit que vous souhaitez remplacer : \
 (3 caractères minimum)"
 MAIN_MENU = "Retour au menu principal."
 
