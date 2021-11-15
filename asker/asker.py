@@ -205,4 +205,3 @@ class Asker:
             for element in self.dict_term:
                 if element == first_question:
                     first_question = self.dict_term[element].__call__()
-Asker()
